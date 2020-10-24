@@ -1,6 +1,9 @@
 package pl.tomaszrarok.osm;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainApp {
     private JPanel panel1;
@@ -9,6 +12,34 @@ public class MainApp {
     private JButton Courses;
     private JButton Terms;
     private JButton Payments;
+    private JPanel StudentsPanel;
+    private JPanel TeachersPanel;
+    private JPanel CoursesPanel;
+    private JPanel CardPanel;
+
+    public MainApp() {
+        Students.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                CardLayout layout = (CardLayout)CardPanel.getLayout();
+                layout.show(CardPanel, "Card1");
+            }
+        });
+        Teachers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                CardLayout layout = (CardLayout)CardPanel.getLayout();
+                layout.show(CardPanel, "Card2");
+            }
+        });
+        Courses.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                CardLayout layout = (CardLayout)CardPanel.getLayout();
+                layout.show(CardPanel, "Card3");
+            }
+        });
+    }
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
