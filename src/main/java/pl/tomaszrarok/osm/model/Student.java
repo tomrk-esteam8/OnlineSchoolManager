@@ -1,12 +1,26 @@
 package pl.tomaszrarok.osm.model;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
-public class Student {
-    int id;
+import javax.persistence.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "students")
+public class Student extends BaseEntity {
+
+    @Column(name = "name")
     String name;
+
+    @Column(name = "identification")
     String uniqueIdentification;
+
+    @Column(name = "bank_account")
     String bankAccount;
+
+    @Column(name = "contact")
     String contact;
 }
