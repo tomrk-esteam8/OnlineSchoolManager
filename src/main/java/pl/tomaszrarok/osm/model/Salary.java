@@ -3,7 +3,7 @@ package pl.tomaszrarok.osm.model;
 import lombok.Data;
 
 @Data
-public class Sallary {
+public class Salary {
     int id;
     Double value;
     Teacher teacher;
