@@ -5,7 +5,7 @@
              version="2.0">
     <persistence-unit name="test">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>Test</class>
+        <class>pl.tomaszrarok.osm.Test</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:school;create=true;user=root;password=root"/>

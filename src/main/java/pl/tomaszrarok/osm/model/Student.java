@@ -9,18 +9,24 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "students")
+@Table(name = "student")
 public class Student extends BaseEntity {
 
-    @Column(name = "name")
-    String name;
-
-    @Column(name = "identification")
+    @Column(name = "id")
     String uniqueIdentification;
+
+    @Column(name = "firstname")
+    String firstname;
+
+    @Column(name = "lastname")
+    String lastname;
 
     @Column(name = "bank_account")
     String bankAccount;
 
-    @Column(name = "contact")
-    String contact;
+    @Column(name = "email")
+    String email;
+
+    @Column(name = "phone_number")
+    String phoneNumbr;
 }
