@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Student extends BaseEntity {
 
     @Column(name = "id")
-    String uniqueIdentification;
+    String id;
 
     @Column(name = "firstname")
     String firstname;
