@@ -12,9 +12,6 @@ import javax.persistence.*;
 @Table(name = "student")
 public class Student extends BaseEntity {
 
-    @Column(name = "id")
-    String id;
-
     @Column(name = "firstname")
     String firstname;
 
