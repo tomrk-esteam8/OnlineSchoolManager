@@ -2,17 +2,21 @@ package pl.tomaszrarok.osm;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.tomaszrarok.osm.model.Student;
+import pl.tomaszrarok.osm.table.StudentsTableModel;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class MainApp {
@@ -85,14 +89,16 @@ public class MainApp {
     }
 
     private void initializeStudents() {
-        List<Student> students = new ArrayList<Student>();
-        students.add(new Student("John","Smith","00001", "john@awesome.com", "+48 123 456 789"));
-        students.add(new Student("Garry","Geek","00002", "garry@awesome.com", "+48 321 456 789"));
-        students.add(new Student("Andrzej","Nowak","00003", "andrzej@awesome.com", "+132 123 456 789"));
-        students.add(new Student("Misio","Uszatek","00004", "misio@awesome.com", "+48 231 456 789"));
-        students.add(new Student("Juliusz","Ceaser","00005", "juliusz@awesome.com", "+48 312 456 789"));
+        Map<String, Student> students = new HashMap<>();
+        students.put("1", new Student("John","Smith","00001", "john@awesome.com", "+48 123 456 789"));
+        students.put("2",new Student("Garry","Geek","00002", "garry@awesome.com", "+48 321 456 789"));
+        students.put("3",new Student("Andrzej","Nowak","00003", "andrzej@awesome.com", "+132 123 456 789"));
+        students.put("4",new Student("Misio","Uszatek","00004", "misio@awesome.com", "+48 231 456 789"));
+        students.put("5",new Student("Juliusz","Ceaser","00005", "juliusz@awesome.com", "+48 312 456 789"));
+
+
         
-        table1.setTableHeader(new JTableHeader());
+        table1.setModel(new StudentsTableModel(students));
     }
 
     private static void initializeDatabase() {
@@ -122,6 +128,7 @@ public class MainApp {
         frame.setContentPane(new MainApp().panel1);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
