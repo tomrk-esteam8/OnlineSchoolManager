@@ -4,11 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
-@Entity
+@NoArgsConstructor
 @Table(name = "student")
 public class Student extends BaseEntity {
 

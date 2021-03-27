@@ -2,6 +2,7 @@ package pl.tomaszrarok.osm;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.tomaszrarok.osm.model.Student;
+import pl.tomaszrarok.osm.repository.StudentsRepository;
 import pl.tomaszrarok.osm.table.StudentsTableModel;
 
 import javax.persistence.EntityManager;
@@ -40,6 +41,9 @@ public class MainApp {
     private JButton newButton;
     private JButton saveButton;
     private JTable table1;
+    private JButton deleteButton;
+    private StudentsRepository studentsRepository;
+    private StudentsTableModel studentsModel;
 
     public MainApp() {
 
@@ -85,10 +89,46 @@ public class MainApp {
         table1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JTable source = (JTable)e.getSource();
-                int row = source.rowAtPoint( e.getPoint() );
-                int column = source.columnAtPoint( e.getPoint() );
-                log.info( source.getModel().getValueAt(row, column)+"" );
+                textField1.setText(studentsRepository.getElementAt(table1.getSelectedRow()).getFirstname());
+                textField2.setText(studentsRepository.getElementAt(table1.getSelectedRow()).getLastname());
+                textField3.setText(studentsRepository.getElementAt(table1.getSelectedRow()).getEmail());
+                saveButton.setEnabled(true);
+                deleteButton.setEnabled(true);
+            }
+        });
+        newButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                textField1.setText("");
+                textField2.setText("");
+                textField3.setText("");
+                deleteButton.setEnabled(false);
+                table1.clearSelection();
+            }
+        });
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if( !table1.getSelectionModel().isSelectionEmpty() ){
+                    textField1.setText("");
+                    textField2.setText("");
+                    textField3.setText("");
+                    studentsRepository.removeElementAt(table1.getSelectedRow());
+                    studentsModel.fireTableRowsDeleted(table1.getSelectedRow(),table1.getSelectedRow());
+                    deleteButton.setEnabled(false);
+                    table1.clearSelection();
+                }
+            }
+        });
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if( !table1.getSelectionModel().isSelectionEmpty() ){
+                    studentsRepository.saveElementAt(textField1.getText(), textField2.getText(), textField3.getText(), table1.getSelectedRow());
+                    studentsModel.fireTableRowsUpdated(table1.getSelectedRow(),table1.getSelectedRow());
+                } else {
+                    //TODO implement creat, generate id
+                }
             }
         });
     }
@@ -97,22 +137,17 @@ public class MainApp {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
-                //initializeDatabase();
             }
         });
     }
 
     private void initializeStudents() {
-        Map<String, Student> students = new HashMap<>();
-        students.put("1", new Student("John","Smith","00001", "john@awesome.com", "+48 123 456 789"));
-        students.put("2",new Student("Garry","Geek","00002", "garry@awesome.com", "+48 321 456 789"));
-        students.put("3",new Student("Andrzej","Nowak","00003", "andrzej@awesome.com", "+132 123 456 789"));
-        students.put("4",new Student("Misio","Uszatek","00004", "misio@awesome.com", "+48 231 456 789"));
-        students.put("5",new Student("Juliusz","Ceaser","00005", "juliusz@awesome.com", "+48 312 456 789"));
+        studentsRepository = new StudentsRepository();
+        studentsModel =new StudentsTableModel(studentsRepository);
+        table1.setModel(studentsModel);
 
-
-        
-        table1.setModel(new StudentsTableModel(students));
+        saveButton.setEnabled(false);
+        deleteButton.setEnabled(false);
     }
 
     private static void initializeDatabase() {

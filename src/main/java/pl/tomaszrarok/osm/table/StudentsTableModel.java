@@ -1,30 +1,29 @@
 package pl.tomaszrarok.osm.table;
 
+import lombok.extern.slf4j.Slf4j;
 import pl.tomaszrarok.osm.model.Student;
+import pl.tomaszrarok.osm.repository.StudentsRepository;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
+@Slf4j
 public class StudentsTableModel extends AbstractTableModel {
 
-    private Map<String, Student> data;
-    private String[] keys;
+    private final StudentsRepository repository;
 
     private final String columnNames[] =
             new String[] {
-                    "Firstname", "Lastname","E-Mail", "Phone"
+                    "ID", "Firstname", "Lastname","E-Mail", "Phone"
             };
 
-    private static final int FIRSTNAME = 0;
-    private static final int LASTNAME = 1;
-    private static final int EMAIL = 2;
-    private static final int PHONE = 3;
+    private static final int ID = 0;
+    private static final int FIRSTNAME = 1;
+    private static final int LASTNAME = 2;
+    private static final int EMAIL = 3;
+    private static final int PHONE = 4;
 
-    public StudentsTableModel(Map<String, Student> initial) {
-        data = initial;
-        keys = data.keySet().toArray(new String[data.size()]);
+    public StudentsTableModel(StudentsRepository repository) {
+        this.repository = repository;
     }
 
     @Override
@@ -39,20 +38,23 @@ public class StudentsTableModel extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        return data.size();
+        return repository.size();
     }
 
     @Override
     public Object getValueAt(int row, int col) {
+        Student student = repository.getElementAt(row);
         switch(col){
+            case ID:
+                return student.getId();
             case FIRSTNAME:
-                return data.get(keys[row]).getFirstname();
+                return student.getFirstname();
             case LASTNAME:
-                return data.get(keys[row]).getLastname();
+                return student.getLastname();
             case EMAIL:
-                return data.get(keys[row]).getEmail();
+                return student.getEmail();
             case PHONE:
-                return data.get(keys[row]).getPhoneNumbr();
+                return student.getPhoneNumbr();
             default:
                 return null;
         }
