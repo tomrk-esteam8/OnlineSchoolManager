@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.SessionFactory;
+
 @Slf4j
 public class MainApp {
     private JPanel panel1;
@@ -46,7 +48,7 @@ public class MainApp {
     private StudentsTableModel studentsModel;
 
     public MainApp() {
-
+        initializeDatabase();
         /**
          * We perform refresh data load for students here.
          */
@@ -155,18 +157,17 @@ public class MainApp {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
-        Test test = em.find(Test.class, 1);
+        Student test = em.find(Student.class, 1L);
         if (test == null) {
-            test = new Test();
-            test.id = 1;
-            test.data = "a";
+            test = new Student();
+            test.setFirstname("a");
+            test.setLastname("a");
 
             tx.begin();
             em.persist(test);
             tx.commit();
         }
 
-        System.out.format("Test{id=%s, data=%s}\n", test.id, test.data);
 
         em.close();
         emf.close();

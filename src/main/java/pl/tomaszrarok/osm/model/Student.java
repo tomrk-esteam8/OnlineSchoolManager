@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +24,5 @@ public class Student extends BaseEntity {
     String email;
 
     @Column(name = "phone_number")
-    String phoneNumbr;
+    String phoneNumber;
 }

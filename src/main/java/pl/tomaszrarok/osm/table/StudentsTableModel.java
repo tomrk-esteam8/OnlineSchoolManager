@@ -54,7 +54,7 @@ public class StudentsTableModel extends AbstractTableModel {
             case EMAIL:
                 return student.getEmail();
             case PHONE:
-                return student.getPhoneNumbr();
+                return student.getPhoneNumber();
             default:
                 return null;
         }

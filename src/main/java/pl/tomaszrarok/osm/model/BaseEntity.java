@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
@@ -16,5 +16,5 @@ public class BaseEntity {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    int id;
+    long id;
 }
