@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@Entity
+@MappedSuperclass
 @AllArgsConstructor
 @NoArgsConstructor
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class BaseEntity {
     @Id
     @GeneratedValue
