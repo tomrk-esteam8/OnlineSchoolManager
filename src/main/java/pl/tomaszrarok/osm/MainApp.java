@@ -167,8 +167,6 @@ public class MainApp {
             em.persist(test);
             tx.commit();
         }
-
-
         em.close();
         emf.close();
     }
