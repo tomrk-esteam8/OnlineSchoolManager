@@ -19,7 +19,6 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:school;user=root;password=root"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect" />
-           <property name="javax.persistence.sql-load-script-source" value="META-INF/insert_data.sql" />
             <property name="show_sql" value="true"/>
         </properties>
     </persistence-unit>

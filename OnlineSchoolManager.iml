@@ -50,5 +50,7 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-simple:1.6.4" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.7" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.flyway:flyway-core:2.3.1" level="project" />
+    <orderEntry type="library" name="Maven: org.flywaydb:flyway-core:7.8.1" level="project" />
   </component>
 </module>
