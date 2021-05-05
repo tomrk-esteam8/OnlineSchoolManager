@@ -16,8 +16,8 @@
         <properties>
             <property name="hibernate.hbm2ddl.import_files_sql_extractor" value="org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor" />
             <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:derby:school;user=root;password=root"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:derby:school;user=root;password=root;create=true"/>
+            <property name="hibernate.hbm2ddl.auto" value="none"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect" />
             <property name="show_sql" value="true"/>
         </properties>

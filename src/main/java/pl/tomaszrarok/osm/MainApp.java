@@ -7,6 +7,8 @@ import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -49,7 +51,8 @@ public class MainApp {
     private StudentsTableModel studentsModel;
 
     public MainApp() {
-        // initializeDatabase();
+        initializeFlyway();
+
         /**
          * We perform refresh data load for students here.
          */
@@ -146,6 +149,32 @@ public class MainApp {
         deleteButton.setEnabled(false);
     }
 
+    private static void initializeFlyway() {
+        try {
+            migrateDb();
+        } catch (Exception e) {
+            connectToDb();
+            migrateDb();
+        }
+
+    }
+
+    private static void migrateDb() {
+        Flyway.configure()
+                .dataSource("jdbc:derby:school", "root", "root")
+                .baselineOnMigrate(true)
+                .createSchemas(true)
+                .load().migrate();
+
+    }
+
+    private static void connectToDb() {
+        try {
+            DriverManager.getConnection("jdbc:derby:school;create=true");
+        } catch (SQLException throwables) {
+        }
+    }
+
     private static void initializeDatabase() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("test");
         EntityManager em = emf.createEntityManager();
@@ -166,24 +195,12 @@ public class MainApp {
     }
 
     public static void main(String[] args) {
-        //initializeFlyway();
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
             }
         });
-    }
-
-    private static void initializeFlyway() {
-        Flyway flyway =
-                Flyway.configure()
-                        .dataSource("jdbc:derby:school", "root", "root").baselineOnMigrate(true)
-                        .load();
-                ;
-
-
-        flyway.migrate();
     }
 
     private static void createAndShowGUI() {
