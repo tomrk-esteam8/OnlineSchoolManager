@@ -81,7 +81,7 @@ public abstract class BaseDAO<T extends BaseEntity> implements DAO<T> {
     protected Class getClassName() throws ClassNotFoundException {
         Type sooper = getClass().getGenericSuperclass();
         Type t = ((ParameterizedType) sooper).getActualTypeArguments()[0];
-        return Class.forName(t.toString());
+        return Class.forName(t.getTypeName());
     }
 
 }

@@ -11,11 +11,11 @@ import pl.tomaszrarok.osm.model.Student;
 public class StudentsRepository {
 
     private final StudentDAO           studentDAO = new StudentDAO();
-    private final Map<String, Student> data       = new HashMap<>();
+    private final Map<Long, Student> data       = new HashMap<>();
 
     public StudentsRepository() {
         List<Student> students = studentDAO.findAll();
-        students.forEach(s -> data.put("" + s.getId(), s));
+        students.forEach(s -> data.put(s.getId(), s));
     }
 
     public void saveElementAt(String firstname, String lastname, String email, int index) {
@@ -30,8 +30,8 @@ public class StudentsRepository {
         return data.get(getKeyAt(index));
     }
 
-    private String getKeyAt(int index) {
-        return data.keySet().toArray(new String[data.size()])[index];
+    private Long getKeyAt(int index) {
+        return data.keySet().toArray(new Long[data.size()])[index];
     }
 
     public void addElement(String firstname, String lastname, String email) {
@@ -43,7 +43,8 @@ public class StudentsRepository {
     }
 
     public void removeElementAt(int index) {
-        studentDAO.delete((long) index);
+        Student s = getElementAt(index);
+        studentDAO.delete(s.getId());
         data.remove(getKeyAt(index));
     }
 }

@@ -175,25 +175,6 @@ public class MainApp {
         }
     }
 
-    private static void initializeDatabase() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("test");
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-
-        Student test = em.find(Student.class, 1L);
-        if (test == null) {
-            test = new Student();
-            test.setFirstname("a");
-            test.setLastname("a");
-
-            tx.begin();
-            em.persist(test);
-            tx.commit();
-        }
-        em.close();
-        emf.close();
-    }
-
     public static void main(String[] args) {
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
