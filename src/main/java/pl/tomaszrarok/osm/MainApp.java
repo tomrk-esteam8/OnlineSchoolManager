@@ -20,8 +20,11 @@ import org.flywaydb.core.Flyway;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.tomaszrarok.osm.fields.StudentsFieldCollection;
+import pl.tomaszrarok.osm.fields.TeachersFieldCollection;
 import pl.tomaszrarok.osm.operator.StudentsOperator;
+import pl.tomaszrarok.osm.operator.TeachersOperator;
 import pl.tomaszrarok.osm.repository.StudentsRepository;
+import pl.tomaszrarok.osm.repository.TeachersRepository;
 import pl.tomaszrarok.osm.table.StudentsTableModel;
 
 @Slf4j
@@ -48,6 +51,17 @@ public class MainApp {
     private JButton studentDeleteButton;
     private final StudentsOperator studentsOperator;
 
+    private JTextField teacherFirstnameField;
+    private JTextField teacherLastnameField;
+    private JTextField teacherEmailField;
+    private JButton techerNewButton;
+    private JButton teacherSaveButton;
+    private JTable teacherTable;
+    private JButton teacherDeleteButton;
+    private final TeachersOperator teachersOperator;
+
+
+
 
 
     public MainApp() {
@@ -55,6 +69,9 @@ public class MainApp {
 
         StudentsFieldCollection studentsFields = new StudentsFieldCollection(studentFirstnameTextField, studentLastnameTextField, studentEmailTextField);
         studentsOperator = new StudentsOperator(studentTable, studentSaveButton, studentDeleteButton, studentNewButton, studentsFields, new StudentsRepository());
+
+        TeachersFieldCollection teacherFields = new TeachersFieldCollection(teacherFirstnameField, teacherLastnameField, teacherEmailField);
+        teachersOperator = new TeachersOperator(teacherTable, teacherSaveButton, teacherDeleteButton, techerNewButton, teacherFields, new TeachersRepository());
 
         /**
          * We perform refresh data load for students here.
@@ -71,17 +88,17 @@ public class MainApp {
         Teachers.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                teachersOperator.init();
                 CardLayout layout = (CardLayout) CardPanel.getLayout();
                 layout.show(CardPanel, "Card2");
-                log.info("action performed card 2");
             }
         });
         Courses.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+
                 CardLayout layout = (CardLayout) CardPanel.getLayout();
                 layout.show(CardPanel, "Card3");
-                log.info("action performed card 3");
             }
         });
 
