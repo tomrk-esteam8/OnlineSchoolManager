@@ -10,10 +10,6 @@ import java.awt.event.MouseEvent;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,12 +19,14 @@ import javax.swing.JTextField;
 import org.flywaydb.core.Flyway;
 
 import lombok.extern.slf4j.Slf4j;
-import pl.tomaszrarok.osm.model.Student;
+import pl.tomaszrarok.osm.fields.StudentsFieldCollection;
+import pl.tomaszrarok.osm.operator.StudentsOperator;
 import pl.tomaszrarok.osm.repository.StudentsRepository;
 import pl.tomaszrarok.osm.table.StudentsTableModel;
 
 @Slf4j
 public class MainApp {
+
 
     private JPanel             panel1;
     private JButton            Students;
@@ -40,18 +38,23 @@ public class MainApp {
     private JPanel             TeachersPanel;
     private JPanel             CoursesPanel;
     private JPanel             CardPanel;
-    private JTextField         textField1;
-    private JTextField         textField2;
-    private JTextField         textField3;
-    private JButton            newButton;
-    private JButton            saveButton;
-    private JTable             table1;
-    private JButton            deleteButton;
-    private StudentsRepository studentsRepository;
-    private StudentsTableModel studentsModel;
+
+    private JTextField studentFirstnameTextField;
+    private JTextField studentLastnameTextField;
+    private JTextField studentEmailTextField;
+    private JButton studentNewButton;
+    private JButton studentSaveButton;
+    private JTable studentTable;
+    private JButton studentDeleteButton;
+    private final StudentsOperator studentsOperator;
+
+
 
     public MainApp() {
         initializeFlyway();
+
+        StudentsFieldCollection studentsFields = new StudentsFieldCollection(studentFirstnameTextField, studentLastnameTextField, studentEmailTextField);
+        studentsOperator = new StudentsOperator(studentTable, studentSaveButton, studentDeleteButton, studentNewButton, studentsFields, new StudentsRepository());
 
         /**
          * We perform refresh data load for students here.
@@ -59,7 +62,7 @@ public class MainApp {
         Students.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                initializeStudents();
+                studentsOperator.init();
                 CardLayout layout = (CardLayout) CardPanel.getLayout();
                 layout.show(CardPanel, "Card1");
 
@@ -88,65 +91,10 @@ public class MainApp {
         CardPanel.addHierarchyListener(new HierarchyListener() {
             @Override
             public void hierarchyChanged(HierarchyEvent hierarchyEvent) {
-                initializeStudents();
+                studentsOperator.init();
             }
         });
 
-        table1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                textField1.setText(studentsRepository.getElementAt(table1.getSelectedRow()).getFirstname());
-                textField2.setText(studentsRepository.getElementAt(table1.getSelectedRow()).getLastname());
-                textField3.setText(studentsRepository.getElementAt(table1.getSelectedRow()).getEmail());
-                saveButton.setEnabled(true);
-                deleteButton.setEnabled(true);
-            }
-        });
-        newButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                textField1.setText("");
-                textField2.setText("");
-                textField3.setText("");
-                deleteButton.setEnabled(false);
-                table1.clearSelection();
-            }
-        });
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (!table1.getSelectionModel().isSelectionEmpty()) {
-                    textField1.setText("");
-                    textField2.setText("");
-                    textField3.setText("");
-                    studentsRepository.removeElementAt(table1.getSelectedRow());
-                    studentsModel.fireTableRowsDeleted(table1.getSelectedRow(), table1.getSelectedRow());
-                    deleteButton.setEnabled(false);
-                    table1.clearSelection();
-                }
-            }
-        });
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (!table1.getSelectionModel().isSelectionEmpty()) {
-                    studentsRepository.saveElementAt(textField1.getText(), textField2.getText(), textField3.getText(),
-                                                     table1.getSelectedRow());
-                    studentsModel.fireTableRowsUpdated(table1.getSelectedRow(), table1.getSelectedRow());
-                } else {
-                    //TODO implement creat, generate id
-                }
-            }
-        });
-    }
-
-    private void initializeStudents() {
-        studentsRepository = new StudentsRepository();
-        studentsModel = new StudentsTableModel(studentsRepository);
-        table1.setModel(studentsModel);
-
-        saveButton.setEnabled(false);
-        deleteButton.setEnabled(false);
     }
 
     private static void initializeFlyway() {
