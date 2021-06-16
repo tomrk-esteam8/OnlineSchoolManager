@@ -15,7 +15,9 @@ public class CoursesRepository extends BaseRepository<Course, CourseDAO>{
         super(new HashMap<>(), new CourseDAO());
     }
 
-    public void saveElementAt(int index) {
+    public void saveElementAt(String name, int index) {
+        getElementAt(index).setName(name);
+
         modelDAO.save(getElementAt(index));
     }
 }
