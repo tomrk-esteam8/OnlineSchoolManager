@@ -13,11 +13,19 @@ public class StudentsRepository extends BaseRepository<Student, StudentDAO>{
     }
 
 
-    public void saveElementAt(String firstname, String lastname, String email, int index) {
+    public void saveElementAt(String firstname, String lastname, String email, String phone, String bankAccount, int index) {
         getElementAt(index).setFirstname(firstname);
         getElementAt(index).setLastname(lastname);
         getElementAt(index).setEmail(email);
+        getElementAt(index).setPhoneNumber(phone);
+        getElementAt(index).setBankAccount(bankAccount);
 
         modelDAO.save(getElementAt(index));
+    }
+
+    public Student createElement(String firstname, String lastname, String email, String phone, String bankAccount) {
+        Student student = new Student(firstname, lastname, bankAccount, email, phone);
+
+        return modelDAO.save(student);
     }
 }

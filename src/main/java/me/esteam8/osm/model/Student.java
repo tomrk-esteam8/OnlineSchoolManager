@@ -25,4 +25,5 @@ public class Student extends BaseEntity {
 
     @Column(name = "phone_number")
     String phoneNumber;
+
 }

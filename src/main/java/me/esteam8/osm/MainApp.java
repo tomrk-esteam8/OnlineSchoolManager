@@ -41,6 +41,8 @@ public class MainApp {
     private JTextField studentFirstnameTextField;
     private JTextField studentLastnameTextField;
     private JTextField studentEmailTextField;
+    private JTextField studentPhoneTextField;
+    private JTextField studentBankAccountTextField;
     private JButton studentNewButton;
     private JButton studentSaveButton;
     private JTable studentTable;
@@ -71,7 +73,7 @@ public class MainApp {
     public MainApp() {
         initializeFlyway();
 
-        StudentsFieldCollection studentsFields = new StudentsFieldCollection(studentFirstnameTextField, studentLastnameTextField, studentEmailTextField);
+        StudentsFieldCollection studentsFields = new StudentsFieldCollection(studentFirstnameTextField, studentLastnameTextField, studentEmailTextField, studentPhoneTextField, studentBankAccountTextField);
         studentsOperator = new StudentsOperator(studentTable, studentSaveButton, studentDeleteButton, studentNewButton, studentsFields, new StudentsRepository());
 
         TeachersFieldCollection teacherFields = new TeachersFieldCollection(teacherFirstnameField, teacherLastnameField, teacherEmailField);

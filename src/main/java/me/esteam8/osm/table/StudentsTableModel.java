@@ -12,8 +12,8 @@ public class StudentsTableModel extends AbstractTableModel {
     private final StudentsRepository repository;
 
     private final String columnNames[] =
-            new String[] {
-                    "ID", "Firstname", "Lastname","E-Mail", "Phone"
+            new String[]{
+                    "ID", "Firstname", "Lastname", "E-Mail", "Phone", "Bank Account"
             };
 
     private static final int ID = 0;
@@ -21,6 +21,7 @@ public class StudentsTableModel extends AbstractTableModel {
     private static final int LASTNAME = 2;
     private static final int EMAIL = 3;
     private static final int PHONE = 4;
+    private static final int BANK_ACCOUNT = 5;
 
     public StudentsTableModel(StudentsRepository repository) {
         this.repository = repository;
@@ -55,6 +56,8 @@ public class StudentsTableModel extends AbstractTableModel {
                 return student.getEmail();
             case PHONE:
                 return student.getPhoneNumber();
+            case BANK_ACCOUNT:
+                return student.getBankAccount();
             default:
                 return null;
         }

@@ -45,13 +45,14 @@ public abstract class BaseDAO<T extends BaseEntity> implements DAO<T> {
         }
     }
 
-    public void save(T baseEntity) {
+    public T save(T baseEntity) {
         EntityManager manager = entityManagerFactory.createEntityManager();
         EntityTransaction tx = manager.getTransaction();
         try {
             tx.begin();
-            manager.merge(baseEntity);
+            baseEntity = manager.merge(baseEntity);
             tx.commit();
+            return baseEntity;
         } catch (RuntimeException e) {
             tx.rollback();
             throw e;

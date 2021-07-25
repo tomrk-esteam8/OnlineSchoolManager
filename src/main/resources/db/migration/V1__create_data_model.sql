@@ -1,7 +1,7 @@
 create table STUDENT
 (
     ID           BIGINT not null
-        primary key,
+        primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     BANK_ACCOUNT VARCHAR(255),
     EMAIL        VARCHAR(255),
     FIRSTNAME    VARCHAR(255),

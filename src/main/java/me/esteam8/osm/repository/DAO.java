@@ -9,7 +9,7 @@ public interface DAO<T> {
 
     List<T> findAll();
 
-    void save(T t);
+    T save(T t);
 
     void delete(Long id);
 }

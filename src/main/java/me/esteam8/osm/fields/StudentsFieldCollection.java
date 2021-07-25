@@ -11,4 +11,6 @@ public class StudentsFieldCollection {
     private JTextField firstname;
     private JTextField lastname;
     private JTextField email;
+    private JTextField phone;
+    private JTextField bankAccount;
 }
