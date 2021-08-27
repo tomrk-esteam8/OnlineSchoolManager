@@ -4,12 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import me.esteam8.osm.model.Teacher;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 @Slf4j
 public class TeachersRepository extends BaseRepository<Teacher, TeacherDAO> {
 
     public TeachersRepository() {
-        super(new HashMap<>(), new TeacherDAO());
+        super(new TreeMap<>(), new TeacherDAO());
     }
 
     public void saveElementAt(String firstname, String lastname, String email, int index) {

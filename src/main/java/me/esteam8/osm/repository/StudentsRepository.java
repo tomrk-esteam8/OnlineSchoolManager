@@ -1,6 +1,7 @@
 package me.esteam8.osm.repository;
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import lombok.extern.slf4j.Slf4j;
 import me.esteam8.osm.model.Student;
@@ -9,7 +10,7 @@ import me.esteam8.osm.model.Student;
 public class StudentsRepository extends BaseRepository<Student, StudentDAO>{
 
     public StudentsRepository() {
-        super(new HashMap<>(), new StudentDAO());
+        super(new TreeMap<>(), new StudentDAO());
     }
 
 
@@ -23,9 +24,7 @@ public class StudentsRepository extends BaseRepository<Student, StudentDAO>{
         modelDAO.save(getElementAt(index));
     }
 
-    public Student createElement(String firstname, String lastname, String email, String phone, String bankAccount) {
-        Student student = new Student(firstname, lastname, bankAccount, email, phone);
-
-        return modelDAO.save(student);
+    public void createElement(String firstname, String lastname, String email, String phone, String bankAccount) {
+        createElement( new Student(firstname, lastname, bankAccount, email, phone) );
     }
 }

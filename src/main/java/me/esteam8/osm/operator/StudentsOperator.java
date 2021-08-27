@@ -82,11 +82,13 @@ public class StudentsOperator {
                                              table.getSelectedRow());
                     model.fireTableRowsUpdated(table.getSelectedRow(), table.getSelectedRow());
                 } else {
+                    int lastRow= table.getRowCount();
                     repository.createElement(fields.getFirstname().getText(), fields.getLastname().getText(),
                                              fields.getEmail().getText(),
                                              fields.getPhone().getText(), fields.getBankAccount().getText());
-                    //TODO reload table
 
+                    model.fireTableDataChanged();
+                    table.setRowSelectionInterval(lastRow, lastRow);
                 }
             }
         });

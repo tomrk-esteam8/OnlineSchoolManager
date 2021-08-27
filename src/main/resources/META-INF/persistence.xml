@@ -19,6 +19,7 @@
             <property name="javax.persistence.jdbc.url" value="jdbc:derby:school;user=root;password=root;create=true"/>
             <property name="hibernate.hbm2ddl.auto" value="none"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.DerbyTenSevenDialect" />
+            <property name="hibernate.id.new_generator_mappings" value="false"/>
             <property name="show_sql" value="true"/>
         </properties>
     </persistence-unit>

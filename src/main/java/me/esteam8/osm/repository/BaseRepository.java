@@ -17,16 +17,17 @@ public abstract class BaseRepository<M extends BaseEntity, D extends BaseDAO> {
         elements.forEach(e -> data.put(e.getId(), e));
     }
 
+    public void createElement(M element){
+        M entity = (M)modelDAO.save(element);
+        data.put(entity.getId(), entity);
+    }
+
     public M getElementAt(int index) {
         return data.get(getKeyAt(index));
     }
 
     private Long getKeyAt(int index) {
         return data.keySet().toArray(new Long[data.size()])[index];
-    }
-
-    public void addElement(String firstname, String lastname, String email) {
-
     }
 
     public int size() {

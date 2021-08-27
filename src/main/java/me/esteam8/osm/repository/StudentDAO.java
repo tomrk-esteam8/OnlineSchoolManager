@@ -6,7 +6,7 @@ public class StudentDAO extends BaseDAO<Student> {
 
     @Override
     protected String getQuery() {
-        return "select student from Student student";
+        return "select student from Student student order by id";
     }
 
 }

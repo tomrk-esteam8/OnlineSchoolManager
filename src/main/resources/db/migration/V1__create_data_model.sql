@@ -57,11 +57,3 @@ create table TERM
         constraint FKAPFDCO0FBDIFDV4BP5Q9H6T92
             references TEACHER
 );
-
-create table TEST
-(
-    ID   INTEGER not null
-        primary key,
-    DATA VARCHAR(255)
-);
-
