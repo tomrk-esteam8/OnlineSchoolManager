@@ -14,6 +14,8 @@ import me.esteam8.osm.table.StudentsTableModel;
 
 /**
  * Class to provide operations on student repository within GUI.
+ * TODO: validation, logging operations, sort data in table (then create/delete/update has to be adjusted)
+ *
  */
 public class StudentsOperator {
     private JTable table;
