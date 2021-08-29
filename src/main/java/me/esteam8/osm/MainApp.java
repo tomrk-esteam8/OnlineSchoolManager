@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 import javax.swing.*;
 
+import me.esteam8.osm.repository.StudentDAO;
 import org.flywaydb.core.Flyway;
 
 import lombok.extern.slf4j.Slf4j;
@@ -74,7 +75,7 @@ public class MainApp {
         initializeFlyway();
 
         StudentsFieldCollection studentsFields = new StudentsFieldCollection(studentFirstnameTextField, studentLastnameTextField, studentEmailTextField, studentPhoneTextField, studentBankAccountTextField);
-        studentsOperator = new StudentsOperator(studentTable, studentSaveButton, studentDeleteButton, studentNewButton, studentsFields, new StudentsRepository());
+        studentsOperator = new StudentsOperator(studentTable, studentSaveButton, studentDeleteButton, studentNewButton, studentsFields, new StudentsRepository(new StudentDAO()));
 
         TeachersFieldCollection teacherFields = new TeachersFieldCollection(teacherFirstnameField, teacherLastnameField, teacherEmailField);
         teachersOperator = new TeachersOperator(teacherTable, teacherSaveButton, teacherDeleteButton, techerNewButton, teacherFields, new TeachersRepository());

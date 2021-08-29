@@ -9,8 +9,8 @@ import me.esteam8.osm.model.Student;
 @Slf4j
 public class StudentsRepository extends BaseRepository<Student, StudentDAO>{
 
-    public StudentsRepository() {
-        super(new TreeMap<>(), new StudentDAO());
+    public StudentsRepository(StudentDAO dao) {
+        super(new TreeMap<>(), dao);
     }
 
 
