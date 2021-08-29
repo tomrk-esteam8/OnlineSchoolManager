@@ -42,7 +42,7 @@ public class StudentsOperator {
         newButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                newButtonClickAction();
+                clearButtonClickAction();
             }
         });
         deleteButton.addActionListener(new ActionListener() {
@@ -60,20 +60,20 @@ public class StudentsOperator {
     }
 
     protected void saveButtonClickAction() {
-        if (!table.getSelectionModel().isSelectionEmpty()) {
-            repository.saveElementAt(fields.getFirstname().getText(), fields.getLastname().getText(),
-                                     fields.getEmail().getText(), fields.getPhone().getText(),
-                                     fields.getBankAccount().getText(),
-                                     table.getSelectedRow());
-            model.fireTableRowsUpdated(table.getSelectedRow(), table.getSelectedRow());
-        } else {
+        if (table.getSelectionModel().isSelectionEmpty()) {
             int lastRow= table.getRowCount();
             repository.createElement(fields.getFirstname().getText(), fields.getLastname().getText(),
-                                     fields.getEmail().getText(),
-                                     fields.getPhone().getText(), fields.getBankAccount().getText());
+                    fields.getEmail().getText(),
+                    fields.getPhone().getText(), fields.getBankAccount().getText());
 
             model.fireTableDataChanged();
             table.setRowSelectionInterval(lastRow, lastRow);
+        } else {
+            repository.saveElementAt(fields.getFirstname().getText(), fields.getLastname().getText(),
+                    fields.getEmail().getText(), fields.getPhone().getText(),
+                    fields.getBankAccount().getText(),
+                    table.getSelectedRow());
+            model.fireTableRowsUpdated(table.getSelectedRow(), table.getSelectedRow());
         }
     }
 
@@ -91,7 +91,7 @@ public class StudentsOperator {
         }
     }
 
-    protected void newButtonClickAction() {
+    protected void clearButtonClickAction() {
         fields.getFirstname().setText("");
         fields.getLastname().setText("");
         fields.getEmail().setText("");
