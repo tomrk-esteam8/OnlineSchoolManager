@@ -65,6 +65,7 @@ public class MainApp {
     private JButton courseNewButton;
     private JTextField courseNameField;
     private JComboBox teacherField;
+    private JTextField teacherPhoneField;
     private final CoursesOperator coursesOperator;
 
 
@@ -77,7 +78,7 @@ public class MainApp {
         StudentsFieldCollection studentsFields = new StudentsFieldCollection(studentFirstnameTextField, studentLastnameTextField, studentEmailTextField, studentPhoneTextField, studentBankAccountTextField);
         studentsOperator = new StudentsOperator(studentTable, studentSaveButton, studentDeleteButton, studentNewButton, studentsFields, new StudentsRepository(new StudentDAO()));
 
-        TeachersFieldCollection teacherFields = new TeachersFieldCollection(teacherFirstnameField, teacherLastnameField, teacherEmailField);
+        TeachersFieldCollection teacherFields = new TeachersFieldCollection(teacherFirstnameField, teacherLastnameField, teacherEmailField, teacherPhoneField);
         teachersOperator = new TeachersOperator(teacherTable, teacherSaveButton, teacherDeleteButton, techerNewButton, teacherFields, new TeachersRepository());
 
         CoursesFieldCollection coursesFields = new CoursesFieldCollection(courseNameField, teacherField);

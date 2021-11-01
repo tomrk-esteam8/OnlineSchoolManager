@@ -81,6 +81,7 @@ public class StudentsOperator {
 
     protected void deleteButtonClickAction() {
         if (!table.getSelectionModel().isSelectionEmpty()) {
+            // TODO it may have Parent and clear options
             fields.getFirstname().setText("");
             fields.getLastname().setText("");
             fields.getEmail().setText("");
@@ -94,6 +95,7 @@ public class StudentsOperator {
     }
 
     protected void clearButtonClickAction() {
+        // TODO it may have Parent and clear options
         fields.getFirstname().setText("");
         fields.getLastname().setText("");
         fields.getEmail().setText("");
@@ -106,6 +108,8 @@ public class StudentsOperator {
     }
 
     protected void tableClickAction() {
+        // TODO it may have Parent and set fieldsY
+
         fields.getFirstname().setText(repository.getElementAt(table.getSelectedRow()).getFirstname());
         fields.getLastname().setText(repository.getElementAt(table.getSelectedRow()).getLastname());
         fields.getEmail().setText(repository.getElementAt(table.getSelectedRow()).getEmail());

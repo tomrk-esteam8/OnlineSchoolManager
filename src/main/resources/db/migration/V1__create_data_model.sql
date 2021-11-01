@@ -12,7 +12,7 @@ create table STUDENT
 create table TEACHER
 (
     ID           BIGINT not null
-        primary key,
+        primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     EMAIL        VARCHAR(255),
     FIRSTNAME    VARCHAR(255),
     LASTNAME     VARCHAR(255),
@@ -22,7 +22,7 @@ create table TEACHER
 create table COURSE
 (
     ID           BIGINT not null
-        primary key,
+        primary key GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     COST         DOUBLE,
     NAME         VARCHAR(255),
     TEACHER_COST DOUBLE,

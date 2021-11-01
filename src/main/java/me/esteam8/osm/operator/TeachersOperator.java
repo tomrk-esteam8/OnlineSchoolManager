@@ -34,6 +34,7 @@ public class TeachersOperator {
                 fields.getFirstname().setText(repository.getElementAt(table.getSelectedRow()).getFirstname());
                 fields.getLastname().setText(repository.getElementAt(table.getSelectedRow()).getLastname());
                 fields.getEmail().setText(repository.getElementAt(table.getSelectedRow()).getEmail());
+                fields.getPhone().setText(repository.getElementAt(table.getSelectedRow()).getPhoneNumber());
                 saveButton.setEnabled(true);
                 deleteButton.setEnabled(true);
             }
@@ -44,6 +45,7 @@ public class TeachersOperator {
                 fields.getFirstname().setText("");
                 fields.getLastname().setText("");
                 fields.getEmail().setText("");
+                fields.getPhone().setText("");
                 deleteButton.setEnabled(false);
                 table.clearSelection();
             }
@@ -55,6 +57,7 @@ public class TeachersOperator {
                     fields.getFirstname().setText("");
                     fields.getLastname().setText("");
                     fields.getEmail().setText("");
+                    fields.getPhone().setText("");
                     repository.removeElementAt(table.getSelectedRow());
                     model.fireTableRowsDeleted(table.getSelectedRow(), table.getSelectedRow());
                     deleteButton.setEnabled(false);
@@ -70,7 +73,13 @@ public class TeachersOperator {
                             table.getSelectedRow());
                     model.fireTableRowsUpdated(table.getSelectedRow(), table.getSelectedRow());
                 } else {
-                    //TODO implement creat, generate id
+                    int lastRow= table.getRowCount();
+                    repository.createElement(fields.getFirstname().getText(), fields.getLastname().getText(),
+                            fields.getEmail().getText(),
+                            fields.getPhone().getText());
+
+                    model.fireTableDataChanged();
+                    table.setRowSelectionInterval(lastRow, lastRow);
                 }
             }
         });
